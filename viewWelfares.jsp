@@ -12,7 +12,7 @@ if( request.getAttribute("welfare_table_list") != null){
 
 // TablePaging
 int PAGE_LIMIT = 5;
-int offset = 0, total_welfares_count = 5;
+int offset = 0, total_welfares_count = 0;
 if( request.getAttribute("current_offset") != null ){
   offset = (Integer) request.getAttribute("current_offset");
 }
@@ -24,54 +24,43 @@ if( request.getAttribute("total_welfares") != null ){
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>ViewWelfares</title>
+  <head>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>ViewWelfares</title>
+  <link rel="icon" href="images/favicon.ico">
 
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">	
-<!-- Bootstrap Optional theme -->
-<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<!-- Custom styles for this template -->
-<link href="css/theme_8XXXXXX.css" rel="stylesheet">
-  <style type="text/css">
-      form { max-width: 600px; }
-      .main-label { font-size: 16px; }
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">	
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+  <!-- Template -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- background -->
+  <link rel="stylesheet" href="css/background.css">
+
+  <style>
+    table {
+      background-color: rgb(220, 220, 220);
+    }
+  
+    th {
+      font-size: 200%;
+      background-color: rgb(197, 197, 197);
+    }
+
+    td {
+      font-size: 150%; 
+    }
   </style>
-<link rel="icon" href="images/favicon.ico">
-<link rel="shortcut icon" href="images/favicon.ico">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/form.css">
 
-<style>
-  th {
-    font-size: 170%; 
-  }
-
-  td {
-    font-size: 140%; 
-  }
-
-  body {
-    background-image: url('images/background3.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-</style>
-
-
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<link rel="stylesheet" media="screen" href="css/ie.css">
-<![endif]-->
-</head>
-<body>
+  </head>
+  <body>
     <!-- navigation bar -->
     <%@ include file="navbar.jsp" %>
 
@@ -105,12 +94,12 @@ if( request.getAttribute("total_welfares") != null ){
       <div class="col-xs-12">
 
         <div class="table-responsive">
-          <table class="table table-bordered table-hover table-condensed table table-sm" style="background-color: rgb(255, 255, 255);">
+          <table class="table table-bordered table-hover table-condensed table table-sm">
             <tr>
-              <th>#</th>
-              <th>Φιλοζωική</th>
-              <th>Περιοχή</th>
-              <th>Τηλέφωνο</th>
+              <th class="text-center">#</th>
+              <th class="text-center">Φιλοζωική</th>
+              <th class="text-center">Περιοχή</th>
+              <th class="text-center">Τηλέφωνο</th>
               <th class="text-center"></th>
             </tr>
           
@@ -122,10 +111,10 @@ if( request.getAttribute("total_welfares") != null ){
           %>
 
             <tr>
-              <td><b><%= count %></b></td>
-              <td><%= welf.getName() %></td>
-              <td><%= welf.getLocation() %></td>
-              <td><%= welf.getPhone() %></td>
+              <td class="text-center"><b><%= count %></b></td>
+              <td class="text-center"><%= welf.getName() %></td>
+              <td class="text-center"><%= welf.getLocation() %></td>
+              <td class="text-center"><%= welf.getPhone() %></td>
               <td class="text-center">  
                 <a href="fillForm.jsp"> <button type="button" class="btn btn-success"> Κάνε Αίτηση
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
@@ -176,10 +165,8 @@ if( request.getAttribute("total_welfares") != null ){
       </div>      
     </div>
 
-
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>	
 
   </body>
 </html>
