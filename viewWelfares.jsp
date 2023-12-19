@@ -138,26 +138,56 @@ if( request.getAttribute("total_welfares") != null ){
           </table>
         </div>
 
-        <!-- buttons for paging -->
+        <!-- Paging Buttons -->
         <div class="text-center" style="margin-left: -80px;">
         <%
-        if( offset - PAGE_LIMIT >= 0){
-          int new_offset = offset - PAGE_LIMIT;
-        %>
-
-          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>"> <button class="btn btn-success">
-            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Προηγούμενη </button>
-
-        <%
+        String searched_keyword = null;
+        if (request.getAttribute("remember_keyword") != null){
+          searched_keyword = (String) request.getAttribute("remember_keyword");
+          searched_keyword = new String(searched_keyword.getBytes("ISO-8859-1"), "UTF-8");
         }
+
+        //Condition for Previous-Page Button
+        if( offset - PAGE_LIMIT >= 0){ 
+          int new_offset = offset - PAGE_LIMIT;
+          
+          if (searched_keyword == null){
+        %>          
+          <!-- No additional parameter -->
+          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>">
+            <button class="btn btn-success"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">    
+            </span> Προηγούμενη </button>       
+        <% 
+          } else {
+        %>
+          <!-- Additional parameter: keyword -->
+          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
+              <button class="btn btn-success"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">    
+              </span> Προηγούμενη </button>
+        <%
+          }
+        }
+
+
+        //Condition for Next-Page Button
         if( (offset + PAGE_LIMIT < total_welfares_count) && welfares_for_table.size() != 0) {
           int new_offset = offset + PAGE_LIMIT;
-        %>
           
-          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>"> <button class="btn btn-success">Επόμενη
-            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> </button>
-
+          if (searched_keyword == null){
+        %>          
+          <!-- No additional parameter -->
+          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>">
+            <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
+            </span></button>
+        <% 
+          } else {
+        %>        
+          <!-- Additional parameter: keyword -->
+          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
+            <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
+            </span></button>
         <%
+          }
         }
         %>
         </div>
