@@ -2,33 +2,33 @@ package omadiki_ergasia;
 
 import java.sql.*;
 
-public class Volunteer {
+public class Welfare {
     
     private String username;
 	private String password;
-    private String firstname;
-	private String lastname;
-	private String email;
-	private String phone;
-	private int age;
-    private String location;
+    private String name;
+	private String owner;
+	private String vat;
+    private String email;
+    private String lastname;
+    private String phone;
+	private String location;
 
-   
-    public Volunteer(String username, String password, String firstname, String lastname, String email, String phone, int age, String location) {        
+
+    public Welfare(String username, String password, String name, String owner, String vat, String phone, String location) {        
         this.username = username;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
+        this.name = name;
+        this.owner = owner;
+        this.vat = vat;
         this.phone = phone;
-        this.age = age;
         this.location = location;
     }
 
-    public Volunteer(String username, String password, String firstname, String lastname, String email, String phone) {        
+    public Welfare(String username, String password, String name, String lastname, String email, String phone) {        
         this.username = username;
         this.password = password;
-        this.firstname = firstname;
+        this.name = name;
         this.email = email;
         this.lastname = lastname;
         this.phone = phone;
@@ -50,28 +50,28 @@ public class Volunteer {
         return password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
-    public String getEmail() {
-        return email;
+    public String getVat() {
+        return vat;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setVat(String vat) {
+        this.vat = vat;
     }
 
     public String getPhone() {
@@ -82,14 +82,6 @@ public class Volunteer {
         this.phone = phone;
     }
     
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -98,10 +90,26 @@ public class Volunteer {
         this.location = location;
     }
 
+    public String getΕmail() {
+        return email;
+    }
+
+    public void getΕmail(String email) {
+        this.email = email;
+    }
+
+    public String getLastName() {
+        return lastname;
+    }
+
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
+    }
+
     public int getPrimaryKey(String username, String password) throws Exception{
         DB db = new DB();
         Connection con = null;
-        String query = "SELECT volID FROM ismgroup43.volunteer WHERE username = ? and password = ?;";
+        String query = "SELECT welfID FROM welfare WHERE username = ? AND password = ?;";
         
         int primary_key = -1;
 
@@ -115,7 +123,7 @@ public class Volunteer {
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next()){
-               primary_key = rs.getInt("volID"); 
+               primary_key = rs.getInt("welfID"); 
             }
 
             stmt.close();
