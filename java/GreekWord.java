@@ -13,5 +13,14 @@ public class GreekWord {
         String normalized = Normalizer.normalize(word, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(normalized).replaceAll("");
+    }
+
+    public String acceptGreekInput(String word) throws Exception{
+        if (word == null) {
+            return null;
+        }
+
+        //Greek characters input
+        return word = new String(word.getBytes("ISO-8859-1"), "UTF-8");
     }    
 }
