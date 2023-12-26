@@ -17,7 +17,7 @@
             %>
               <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("viewProfile.jsp")
                 || request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("editProfile.jsp") ? "current" : "" %>">
-                <a href="viewProfile.jsp">Το Προφίλ μου</a> </li>  
+                <a href="viewProfile.jsp">Προφίλ</a> </li>  
 
               <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("viewWelfares.jsp")
                 || request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("fillForm.jsp") ? "current" : "" %>">
@@ -35,10 +35,10 @@
             %>
               <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("viewProfile.jsp")
                 || request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("editProfile.jsp") ? "current" : "" %>">
-                <a href="viewProfile.jsp">Το Προφίλ μου</a> </li> 
+                <a href="viewProfile.jsp">Προφίλ</a> </li> 
 
               <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("viewApplications.jsp") ? "current" : "" %>">
-                  <a href="index.jsp">Αιτήσεις</a> </li>
+                  <a href="reviewApplication.jsp">Αιτήσεις</a> </li>
   
               <li><a href="logout.jsp">Αποσύνδεση</a></li>
   

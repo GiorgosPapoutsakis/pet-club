@@ -56,7 +56,7 @@ moreInfo = gWord.acceptGreekInput(moreInfo);
 
 
 
-ApplicationForm form = new ApplicationForm(welfareName,name,surname,phone,email,location,address,job,
+ApplicationForm form = new ApplicationForm(0,welfareName,name,surname,phone,email,location,address,job,
  experience,moreInfo,volID,welfID);
 
 FormUtilities fUtil = new FormUtilities();
