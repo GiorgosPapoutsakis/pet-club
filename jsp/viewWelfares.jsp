@@ -108,6 +108,7 @@ if( request.getAttribute("total_welfares") != null ){
             int count= offset;
             for(Welfare welf : welfares_for_table){
               count++;
+              int wefID = welf.getPrimaryKey( welf.getUsername(), welf.getPassword() );
           %>
 
             <tr>
@@ -116,7 +117,7 @@ if( request.getAttribute("total_welfares") != null ){
               <td class="text-center"><%= welf.getLocation() %></td>
               <td class="text-center"><%= welf.getPhone() %></td>
               <td class="text-center">  
-                <a href="fillForm.jsp"> <button type="button" class="btn btn-success"> Κάνε Αίτηση
+                <a href="fillForm.jsp?selected_welfare=<%= welf.getName() %>&welfID=<%= wefID %>"> <button type="button" class="btn btn-success"> Κάνε Αίτηση
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </button>
               </td>               
             </tr>

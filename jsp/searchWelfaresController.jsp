@@ -4,6 +4,7 @@
 <%
 WelfareUtilities welfUtil = new WelfareUtilities();
 List<Welfare> welfares_to_return = new ArrayList<Welfare>();
+GreekWord gWord = new GreekWord();
 
 // TablePaging
 int PAGE_LIMIT = 5;
@@ -19,9 +20,10 @@ if (request.getParameter("searchBar") != null) {
     request.setAttribute("remember_keyword", keyword); //for TablePaging
 
     //Greek characters input
-    if (keyword != null) { 
-        keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
-    }
+    //if (keyword != null) { 
+        //keyword = new String(keyword.getBytes("ISO-8859-1"), "UTF-8");
+    //}
+    keyword = gWord.acceptGreekInput(keyword);
 
     welfares_count_before_paging = welfUtil.getCountWelfaresByKeyword(keyword);
     welfares_to_return = welfUtil.getPageWelfaresByKeyword(keyword, PAGE_LIMIT, query_offset);

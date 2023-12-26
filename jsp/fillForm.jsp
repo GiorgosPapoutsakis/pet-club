@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="omadiki_ergasia.*" %>
 
+<%
+// authentication
+if (session.getAttribute("volObj") == null) {
+  request.setAttribute("message", "Πρέπει να συνδεθείτε για να συμπληρώσετε την αίτηση");
+%>
+  <jsp:forward page="login.jsp"/>
+<%
+  return;
+}    
+Volunteer logged_user = (Volunteer) session.getAttribute("volObj");
+
+
+//no welfare chosen
+if (request.getParameter("selected_welfare") == null){
+  request.setAttribute("error_message", "Επιλέξτε κάποια φιλοζωική");
+}
+String selected_welfare_name = request.getParameter("selected_welfare");
+String welfID = request.getParameter("welfID");
+
+//Greek characters input
+GreekWord gWord = new GreekWord();
+selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
+
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,48 +73,55 @@
     <div class="row">                    
       <div class="col-xs-10">
     
-        <form action="#" method="GET" class="form-horizontal">
+        <form action="storeFormController.jsp?welfarePK=<%= welfID %>" method="POST" class="form-horizontal">
             
           <!-- welfares -->
           <div class="form-group">
             <label for="welfare" class="col-sm-3 control-label">Φιλοζωική</label>
             <div class="col-sm-9">
-              <input type="text" name="welfare" id="welfare" class="form-control">
+              <input type="text" name="welfare" id="welfare" value="<%= selected_welfare_name %>" class="form-control" readonly>
             </div>
           </div>      
           <!-- name -->
           <div class="form-group">
-            <label for="ame" class="col-sm-3 control-label">Όνομα</label>
+            <label for="name" class="col-sm-3 control-label">Όνομα</label>
             <div class="col-sm-9">
-              <input type="text" name="name" id="name" class="form-control">
+              <input type="text" name="name" id="name" value="<%= logged_user.getFirstname() %>" class="form-control" readonly>
             </div>
           </div>   
           <!-- lastName --> 
           <div class="form-group">
             <label for="lastName" class="col-sm-3 control-label">Επίθετο</label>
             <div class="col-sm-9">
-              <input type="text" name="lastName" id="lastName" class="form-control">
+              <input type="text" name="lastName" id="lastName" value="<%= logged_user.getLastname() %>"  class="form-control" readonly>
             </div>
           </div>     
           <!-- phone -->
           <div class="form-group">
             <label for="phone" class="col-sm-3 control-label">Τηλέφωνο</label>
             <div class="col-sm-9">
-              <input type="text" name="phone" id="phone" class="form-control">
+              <input type="text" name="phone" id="phone" value="<%= logged_user.getPhone() %>" class="form-control" readonly>
             </div>
           </div> 
           <!-- email -->
           <div class="form-group">
             <label for="email" class="col-sm-3 control-label">Email</label>
             <div class="col-sm-9">
-              <input type="text" name="email" id="email" class="form-control">
+              <input type="text" name="email" id="email" value="<%= logged_user.getEmail() %>" class="form-control" readonly>
             </div>
           </div>
           <!-- location -->
           <div class="form-group">
-            <label for="location" class="col-sm-3 control-label">Κατοικία</label>
+            <label for="location" class="col-sm-3 control-label">Περιοχή</label>
             <div class="col-sm-9">
-              <input type="text" name="location" id="location" class="form-control">
+              <input type="text" name="location" id="location" value="<%= logged_user.getLocation() %>" class="form-control" readonly>
+            </div>
+          </div>          
+          <!-- address -->
+          <div class="form-group">
+            <label for="address" class="col-sm-3 control-label">Διεύθυνση Κατοικίας</label>
+            <div class="col-sm-9">
+              <input type="text" name="address" id="address" class="form-control">
             </div>
           </div>
           <!-- job -->
@@ -102,7 +135,11 @@
           <div class="form-group">
             <label for="experience" class="col-sm-3 control-label">Εμπειρία</label>
             <div class="col-sm-9">
-              <input type="text" name="experience" id="experience" class="form-control">
+							<select id="experience" name="experience" class="form-control">
+								<option value="0-1">0-1 έτη</option>
+								<option value="1-3">1-3 έτη</option>	
+                <option value="3+">3 ή περισσότερα έτη</option>             
+							</select>
             </div>
           </div>
           <!-- comments -->
