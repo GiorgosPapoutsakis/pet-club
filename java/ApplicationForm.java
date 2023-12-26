@@ -2,6 +2,7 @@ package omadiki_ergasia;
 
 public class ApplicationForm {
 
+    private int formID;
     private String welfareName;
     private String name;
     private String surname;
@@ -17,9 +18,10 @@ public class ApplicationForm {
     private boolean isReviewed;
     private boolean result;
     
-    
-    public ApplicationForm(String welfareName, String name, String surname, String phone, String email,
+
+    public ApplicationForm(int id, String welfareName, String name, String surname, String phone, String email,
      String location, String address, String job, String exprerience, String moreInfo, int volID, int welfID) {
+        this.formID = id;
         this.welfareName = welfareName;
         this.name = name;
         this.surname = surname;
@@ -37,6 +39,14 @@ public class ApplicationForm {
     }
 
     //getters and setters
+    public int getFormID() {
+        return formID;
+    }
+
+    public void setFormID(int formID) {
+        this.formID = formID;
+    }
+
     public String getWelfareName() {
         return welfareName;
     }

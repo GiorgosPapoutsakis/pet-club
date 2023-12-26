@@ -1,8 +1,6 @@
 package omadiki_ergasia;
 
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
 
 public class FormUtilities {
     
@@ -49,13 +47,15 @@ public class FormUtilities {
 		}
     }
 
-    public List<ApplicationForm> getUnreviewedFormsByWelfID(int welfID) throws Exception{
+    public ApplicationForm getSingleUnreviewedFormByWelfID(int welfID, int offset) throws Exception{
+
+        int LIMIT = 1;
 
         DB db = new DB();
         Connection con = null;
-        String query = "SELECT * FROM form WHERE isReviewed=? AND idwelfare=?;";
+        String query = "SELECT * FROM form WHERE isReviewed=? AND idwelfare=? LIMIT ? OFFSET ?;";
 
-        List<ApplicationForm> unreviewed_forms = new ArrayList<ApplicationForm>();
+        ApplicationForm unreviewed_form = null;
 
         try {
             con = db.getConnection();
@@ -63,21 +63,24 @@ public class FormUtilities {
             
             stmt.setBoolean(1, false);
             stmt.setInt(2, welfID);
+            stmt.setInt(3, LIMIT);
+            stmt.setInt(4, offset);
 
             ResultSet rs = stmt.executeQuery();
             while( rs.next() ){
-                unreviewed_forms.add(new ApplicationForm(rs.getString("welfare"),
+                unreviewed_form = new ApplicationForm(
+                    rs.getInt("formID"), rs.getString("welfare"),
                     rs.getString("name"), rs.getString("surname"),
                     rs.getString("phone"), rs.getString("email"),
                     rs.getString("location"), rs.getString("address"),
                     rs.getString("job"), rs.getString("experience"),
                     rs.getString("more_info"), rs.getInt("idvol"),
-                    rs.getInt("idwelfare") ));
+                    rs.getInt("idwelfare") );
             }
 
             stmt.close();
             con.close();
-            return unreviewed_forms;
+            return unreviewed_form;
                         
         } catch (Exception e) {
             throw new Exception(e.getMessage());
@@ -88,6 +91,72 @@ public class FormUtilities {
                 // TODO: handle exception
             }
         }
+    }
+
+    public int getCountUnreviewedFormsByWelfID(int welfID) throws Exception{
+
+        DB db = new DB();
+        Connection con = null;
+        String query = "SELECT COUNT(formID) AS total_unreviewed_forms FROM form WHERE isReviewed=? AND idwelfare=?;";
+
+        int total_unreviewed_forms = 0;;
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+            
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, welfID);
+
+            ResultSet rs = stmt.executeQuery();
+            while( rs.next() ){
+                total_unreviewed_forms = rs.getInt("total_unreviewed_forms");
+            }
+
+            stmt.close();
+            con.close();
+            return total_unreviewed_forms;
+                        
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+                db.close();
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
+    }
+
+    public void updateFormResult(int formID, boolean result) throws Exception {
+							
+		DB db = new DB();
+		Connection con = null;
+		
+        String query = "UPDATE form SET isReviewed = ? AND result = ? WHERE formID = ? ;";
+
+		try {
+			con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setBoolean(1, true);
+            stmt.setBoolean(2, result);            			
+            stmt.setInt(3, formID);
+
+            stmt.executeUpdate();
+
+            stmt.close();
+			con.close();
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		} finally {
+			try {
+				db.close();
+			} catch (Exception e) {
+				
+			}
+		}
     }
 
 
