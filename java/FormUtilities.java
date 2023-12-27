@@ -133,7 +133,7 @@ public class FormUtilities {
 		DB db = new DB();
 		Connection con = null;
 		
-        String query = "UPDATE form SET isReviewed = ? AND result = ? WHERE formID = ? ;";
+        String query = "UPDATE form SET isReviewed = ?, result = ? WHERE formID = ? ;";
 
 		try {
 			con = db.getConnection();
