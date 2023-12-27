@@ -72,7 +72,14 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
         <h2 class="ic1">Αξιολόγηση αίτησης</h2>
     </div>
 
+    <% 
+    if( request.getAttribute("success_message") != null){ 
+    %>		
+    <div class="alert alert-success text-center" role="alert"><%=(String) request.getAttribute("success_message") %> </div>
     <%
+    }
+
+
     if( totalUnreviewedForms == 0){
     %>
     
@@ -211,6 +218,9 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
     }
     %>
     </div>
+
+    <!-- footer -->
+    <%@ include file="footer.jsp" %> 
         
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>	    

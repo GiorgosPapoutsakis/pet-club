@@ -131,13 +131,9 @@
       </div>
     </div>
 
-    <footer>
-      <div class="container_12">
-        <div class="grid_12">
-          <p>Pawie &copy; 2023 | Privacy Policy | ismgroup43, templates: TemplateMonster.com </a></p>
-        </div>
-      </div>
-    </footer>
+    <!-- footer -->
+    <%@ include file="footer.jsp" %> 
+
 
   </body>
 </html>

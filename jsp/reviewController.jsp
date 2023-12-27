@@ -21,9 +21,9 @@ FormUtilities fUtil = new FormUtilities();
 fUtil.updateFormResult(formID, result);
 
 if(result == true){
-  request.setAttribute("message", "Η αίτηση εγκρίθηκε επιτυχώς");
+  request.setAttribute("success_message", "Η αίτηση εγκρίθηκε επιτυχώς");
 } else {
-  request.setAttribute("message", "Η αίτηση απορρίφθηκε επιτυχώς");
+  request.setAttribute("success_message", "Η αίτηση απορρίφθηκε επιτυχώς");
 }
 
 %>

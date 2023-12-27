@@ -72,8 +72,9 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
 
     <div class="row">                    
       <div class="col-xs-10">
+
     
-        <form action="storeFormController.jsp?welfarePK=<%= welfID %>" method="POST" class="form-horizontal">
+        <form action="createFormController.jsp?welfarePK=<%= welfID %>" method="POST" class="form-horizontal">
             
           <!-- welfares -->
           <div class="form-group">
@@ -119,7 +120,7 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
           </div>          
           <!-- address -->
           <div class="form-group">
-            <label for="address" class="col-sm-3 control-label">Διεύθυνση Κατοικίας</label>
+            <label for="address" class="col-sm-3 control-label">Διεύθυνση</label>
             <div class="col-sm-9">
               <input type="text" name="address" id="address" class="form-control">
             </div>
@@ -163,6 +164,8 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
           </div>
 
         </form>
+
+
       </div>
     </div>
         

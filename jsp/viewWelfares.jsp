@@ -7,7 +7,7 @@ List<Welfare> welfares_for_table = new ArrayList<Welfare>();
 if( request.getAttribute("welfare_table_list") != null){
   welfares_for_table = (List<Welfare>) request.getAttribute("welfare_table_list");
 } else {
-  response.sendRedirect("searchWelfaresController.jsp");
+  response.sendRedirect("createTableController.jsp");
 }
 
 // TablePaging
@@ -68,10 +68,18 @@ if( request.getAttribute("total_welfares") != null ){
       <div class="page-header">
 				<h2 class="ic1">Ανακάλυψε τις φιλοζωικές δίπλα σου</h2>
 			</div>
+
+    <% 
+    if( session.getAttribute("volObj") == null && welfares_for_table.size() != 0){ 
+    %>		
+    <div class="alert alert-warning text-center" role="alert"> Συνδεθείτε για να κάνετε αίτηση </div>
+    <%
+    }
+    %>
       
       <!-- searchBar & button -->
       <div class="col-xs-12" style="margin-bottom: 30px;">
-        <form action="searchWelfaresController.jsp" class="form-horizontal">          
+        <form action="createTableController.jsp" class="form-horizontal">          
             <div class="form-group">
               <label for="searchBar" class="col-sm-9 control-label"></label>
               <div class="col-sm-9">
@@ -155,14 +163,14 @@ if( request.getAttribute("total_welfares") != null ){
           if (searched_keyword == null){
         %>          
           <!-- No additional parameter -->
-          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>">
+          <a href="createTableController.jsp?new_offset=<%= new_offset %>">
             <button class="btn btn-success"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">    
             </span> Προηγούμενη </button>       
         <% 
           } else {
         %>
           <!-- Additional parameter: keyword -->
-          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
+          <a href="createTableController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
               <button class="btn btn-success"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">    
               </span> Προηγούμενη </button>
         <%
@@ -177,14 +185,14 @@ if( request.getAttribute("total_welfares") != null ){
           if (searched_keyword == null){
         %>          
           <!-- No additional parameter -->
-          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>">
+          <a href="createTableController.jsp?new_offset=<%= new_offset %>">
             <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
             </span></button>
         <% 
           } else {
         %>        
           <!-- Additional parameter: keyword -->
-          <a href="searchWelfaresController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
+          <a href="createTableController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
             <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
             </span></button>
         <%
@@ -195,6 +203,9 @@ if( request.getAttribute("total_welfares") != null ){
 
       </div>      
     </div>
+
+    <!-- footer -->
+    <%@ include file="footer.jsp" %> 
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>	
