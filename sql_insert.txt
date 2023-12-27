@@ -1,0 +1,18 @@
+INSERT INTO volunteer (username, password, name, surname, email, phone, age, location) VALUES ("panos123","fdsfds", "Παναγιώτης", "Κωνσταντινίδης", "panos123@gmail.com", "6980092322", 21, "ΑΘΗΝΑ" );
+INSERT INTO volunteer (username, password, name, surname, email, phone, age, location) VALUES ('tak1', '1234', 'Τάκης', 'Παπαδόπουλος', 'tpapadopoulos@gmail.com', '6944234444', 25,"ΑΘΗΝΑ");
+INSERT INTO volunteer (username, password, name, surname, email, phone, age, location) VALUES ('kostas', '12345', 'Κώστας', 'Τέλογλου', 'kostasTelo@gmail.com', '6944344445', '35',"ΑΘΗΝΑ");
+
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath1", "1234", "Φιλοζωική Περιστερίου", "Γίαννης Παπαδόπουλος", "08080800", "2105757571", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_thes1", "123456", "Φιλοζωική Τσιμισκή", "Ηλίας Πέτρου",  "08080801", "2105858581", "ΘΕΣΣΑΛΟΝΙΚΗ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath2", "1234a", "Φιλοζωική Νίκαιας", "Τρύφωνας Αντώνογλου", "08080802", "2105757572", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath3", "1234b", "Φιλοζωικη Μαρουσι", "Μαρία Τέλογλου", "08080803", "2105757573", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath4", "1234c", "Φιλοζωικη Πειραια", "Κωνσταντίνα Σαμαρά", "08080804", "2105712574", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_rio", "1234c", "Φιλοζωικη Ριου", "Μιχάλης Ελευθερίου", "08080805", "2105719574", "ΡΙΟ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath5", "2134c", "Φιλοζωικη Σεπόλια", "Ελευθέριος Κοσμάς", "08080806", "2105722674", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath6", "2234c", "Φιλοζωικη Ασπρόπυργου", "Γιάννης Παπαδόπουλος", "08080811", "2105728774", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_ath7", "2334c", "Φιλοζωικη Ανθούπολης", "Δημήτρης Παπαντωνίου", "08080810", "2105732874", "ΑΘΗΝΑ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_thes2", "123456", "Φιλοζωική Τούμπας", "Ζωή Κωνσταντοπούλου",  "08080809", "2105854412", "ΘΕΣΣΑΛΟΝΙΚΗ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_thes3", "123456", "Φιλοζωική Εύοσμου", "Χάρης Σαμαράς",  "08080820", "2105854523", "ΘΕΣΣΑΛΟΝΙΚΗ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_thes4", "123456", "Φιλοζωική Τριανδρίας", "Στέφανος Κούλογλου",  "08080821", "2105859534", "ΘΕΣΣΑΛΟΝΙΚΗ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_thes5", "123456", "Φιλοζωική Χαριλάου", "Μάριος Καβάσογλου",  "08080822", "2105862545", "ΘΕΣΣΑΛΟΝΙΚΗ");
+INSERT INTO welfare (username, password, name, owner, vat, phone, location) VALUES ("welf_thes6", "123456", "Φιλοζωική Ωραιοκάστρου", "Ελένη Κωστάκη",  "08080823", "2105865556", "ΘΕΣΣΑΛΟΝΙΚΗ");

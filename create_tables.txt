@@ -1,0 +1,67 @@
+
+/*
+DROP TABLE `ismgroup43`.`form`;
+DROP TABLE `ismgroup43`.`volunteer_welfare`;
+DROP TABLE `ismgroup43`.`welfare`;
+DROP TABLE `ismgroup43`.`volunteer`;
+ */
+ 
+CREATE TABLE `ismgroup43`.`volunteer` (
+  `volID` INT NOT NULL auto_increment,
+  `username` VARCHAR(45),
+  `password` VARCHAR(45),
+  `name` VARCHAR(45),
+  `surname` VARCHAR(45),
+  `email` VARCHAR(45),
+  `phone` VARCHAR(15),
+  `age` INT,
+  `location` VARCHAR(45),
+  PRIMARY KEY (`volID`)
+);
+
+CREATE TABLE `ismgroup43`.`welfare` (
+  `welfID` INT NOT NULL auto_increment,
+  `username` VARCHAR(45),
+  `password` VARCHAR(45),
+  `name` VARCHAR(45),
+  `owner` VARCHAR(45),
+  `vat` VARCHAR(45),
+  `phone` VARCHAR(45),
+  `location` VARCHAR(45),
+  PRIMARY KEY (`welfID`)
+);
+
+CREATE TABLE `ismgroup43`.`volunteer_welfare` (
+`volID` INT NOT NULL ,
+`welfID` INT NOT NULL,
+PRIMARY KEY(`volID`,`welfID`),
+`search_bar` VARCHAR(100),
+CONSTRAINT fk1 FOREIGN KEY(`volID`) REFERENCES `ismgroup43`.`volunteer`(`volID`),
+CONSTRAINT fk2 FOREIGN KEY(`welfID`) REFERENCES `ismgroup43`.`welfare`(`welfID`)
+);
+
+CREATE TABLE `ismgroup43`.`form` (
+ `formID` INT NOT NULL auto_increment,
+ `welfare` VARCHAR(45),
+ `name` VARCHAR(45),
+ `surname` VARCHAR(45),
+ `phone` VARCHAR(45),
+ `email` VARCHAR(45),
+ `location` VARCHAR(45),
+ `address` VARCHAR(45),
+ `job` VARCHAR(45),
+ `experience` VARCHAR(45),
+ `more_info` VARCHAR(200),
+ `isReviewed` BOOLEAN,
+ `result` BOOLEAN,
+ PRIMARY KEY(`formID`),
+ `idvol` INT,
+ `idwelfare` INT,
+ CONSTRAINT fk3 FOREIGN KEY(`idvol`) REFERENCES `ismgroup43`.`volunteer`(`volID`),
+ CONSTRAINT fk4 FOREIGN KEY(`idwelfare`) REFERENCES `ismgroup43`.`welfare`(`welfID`)
+);
+ 
+
+ 
+ 
+ 
