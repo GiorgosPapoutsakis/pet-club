@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/slider.css">
 
+
   <!-- Index javascript -->
   <script src="js/jquery.js"></script>
   <script src="js/jquery-migrate-1.1.1.js"></script>
@@ -120,7 +121,9 @@
     <div class="page1_block" >
       <div class="container_12">
         <div class="grid_6">
+
           <h2>Welcome to Our Site</h2> <br>
+
 
           <img src="images/page1_img5.jpg" alt="" class="img_inner fleft">
           <div class="extra_wrapper style1">

@@ -1,6 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="omadiki_ergasia.*" %>
 
+<%
+
+// authentication
+if (session.getAttribute("volObj") == null & session.getAttribute("welfObj") == null) {
+  request.setAttribute("message", "Πρέπει να συνδεθείτε για να επεξεργαστείτε το προφίλ σας");
+%>
+  <jsp:forward page="login.jsp"/>
+<%
+  return;
+} 
+
+if(session.getAttribute("volObj") !=null) {
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String name = request.getParameter("name");
+    String lastname = request.getParameter("lastname");
+    String email = request.getParameter("email");
+    String phone = request.getParameter("phone");
+    String age = request.getParameter("age");
+    String location = request.getParameter("location");
+} else {
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String name = request.getParameter("name");
+    String owner = request.getParameter("owner");
+    String vat = request.getParameter("vat");
+    String phone = request.getParameter("phone");
+    String location = request.getParameter("location");
+}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +40,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Επεξεργασία Στοιχείων</title>
+    <title>Edit Profile</title>
     <link rel="icon" href="images/favicon.ico">
 
     <!-- Bootstrap -->
-
+     <link rel="stylesheet" href="css/bootstrap.min.css">	
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
     <!-- Template -->
     <link rel="stylesheet" href="css/style.css">
@@ -25,7 +57,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            color: #333;
+            color: #333; 
         }
         .profile-container {
             max-width: 600px;
@@ -65,23 +97,29 @@
             display: inline-block;
             width: 8cm;
         }
-        .file-input {
-            display: none;
-        }
-        .change-picture-button {
-            padding: 5px 10px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        input[type="text"], input[type="tel"] {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        .submitbutton{
+        background-color: rgb(183, 255, 0);
+        color: white;
+        border: none;
+        height: 40px;
+        width: 100px;
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 15;
+        cursor: pointer;
+        transition: opacity 0.15s;
+      
+      }
+      .submitbutton:hover {
+          opacity: 0.5;
+      }
+      .submitbutton:active {
+        opacity: 0.3;
+      }
     </style>
+
+  <!-- background -->
+  <link rel="stylesheet" href="css/background2.css">
 </head>
 
 <body class="page1">
@@ -89,57 +127,192 @@
     <!-- navigation bar -->
     <%@ include file="navbar.jsp" %>
 
-    <div class="profile-container">
-        <h2>My Profile</h2>
-        <!--Change Picture-->
-        <div class="profile-container">
-            <div class="profile-details">
-                <img class="profile-picture" id="profileImage" src="images/blank-profile-picture.jpg" alt="Your Profile Picture">
-                <label for="fileInput" class="change-picture-button">Αλλαγή Φωτογραφίας</label>
-                <input type="file" id="fileInput" class="file-input" accept="image/*">
-            </div>
-                
-            <button class="edit-button">Αποθήκευση</button>
-        </div>
-        
-        <script>
-            const fileInput = document.getElementById('fileInput');
-            const profileImage = document.getElementById('profileImage');
-        
-            fileInput.addEventListener('change', function() {
-                const file = fileInput.files[0];
-                const reader = new FileReader();
-        
-                reader.onload = function(e) {
-                    profileImage.src = e.target.result;
-                }
-        
-                if (file) {
-                    reader.readAsDataURL(file);
-                }
-            });
-        </script>
+    <%
 
-        <!--Change other info-->
-        <div class="profile-info">
-            <p> Ονοματεπώνυμο/Επωνυμία:  <input type="text" id="name" > </p>
-            <p> Ημερομηνία Γέννησης:  <input type="text" id="date" > </p>
-            <p> Διεύθυνση:  <input type="text" id="address" > </p>
-            <p> Ταχυδρομικός Κώδικας:  <input type="tel" id="code" pattern="[0-4]{5}" > </p>
-            <p> Περιοχή:  <input type="text" id="area" > </p>
-            <p> Τηλέφωνο Επικοινωνίας:  <input type="tel" id="phoneNumber" pattern="[0-9]{10}" > </p>
-            <p> Email:  <input type="text" id="email" > </p>
-            <button class="save-button">Αποθήκευση Στοιχείων</button>
-        </div>
-    </div>
+    if(session.getAttribute("volObj") !=null) {
+        Volunteer vol = (Volunteer) session.getAttribute("volObj");
+        
+
+    %>
+                    <div class="profile-container" style= "text-align:center">
+                        <h2>Επεξεργασία Προφίλ</h2>
+                        <!--Profile image-->
+                        <div>
+                        <img class="profile-picture" src="images/blank-profile-picture.jpg" alt="Your Profile Picture">
+                        </div>
+
+                    <div>
+                        <!--Profile info-->
+                        <form class="form-horizontal" action="editProfileController.jsp" method="post">
+                        <div class="profile-info">
+                            <!-- username -->
+                      <div class="form-group">
+                        <label for="username" class="col-sm-3 control-label">Όνομα Χρήστη</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="username" id="username" class="form-control" value= <%=vol.getUsername()%> readonly>
+                        </div>
+                      </div>   
+                      <!-- password --> 
+                      <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Κωδικός</label>
+                        <div class="col-sm-9">
+                          <input type="password" name="password" id="password" class="form-control" value= <%=vol.getPassword()%> required>
+                        </div>
+                      </div>     
+                      <!-- name -->
+                      <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">Όνομα</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="name" id="name" class="form-control" value=<%=vol.getFirstname()%> required>
+                        </div>
+                      </div> 
+                      <!-- last name -->
+                      <div class="form-group">
+                        <label for="lastname" class="col-sm-3 control-label">Επίθετο </label>
+                        <div class="col-sm-9">
+                          <input type="text" name="lastname" id="lastname" class="form-control" value=<%=vol.getLastname()%> required>
+                        </div>
+                      </div> 
+                      <!-- email -->
+                      <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="email" id="email" class="form-control" value=<%=vol.getEmail()%> required>
+                        </div>
+                      </div>
+                      <!-- phone -->
+                      <div class="form-group">
+                        <label for="phone" class="col-sm-3 control-label">Τηλέφωνο</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="phone" id="phone" class="form-control" value=<%=vol.getPhone()%> required>
+                        
+                        </div>
+                        </div>
+                    <!-- age -->
+                      <div class="form-group">
+                        <label for="age" class="col-sm-3 control-label">Ηλικία</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="age" id="age" class="form-control" value=<%=vol.getAge()%> required>
+                        
+                        </div>
+                      </div>
+                      <!-- location -->
+                      <div class="form-group">
+                        <label for="location" class="col-sm-3 control-label">Πόλη</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="location" id="location" class="form-control" value="<%=vol.getLocation()%>" required>
+                        
+                        </div>
+                        </div>
+
+                     <div class="form-group">
+                        <div style="text-align:center">
+                        
+                            <button type="submit" class="submitbutton">
+                              Αποθήκευση Στοιχείων
+                            </button> 
+                        </div>
+                        
+                    </div>
+                        </form>
+                    </div>
+                </div>
+
+
+    <% }else{
+                Welfare welf = (Welfare) session.getAttribute("welfObj");
+                
+
+    %>
+                    <div class="profile-container" style= "text-align:center">
+                        <h2>Επεξεργασία Προφίλ</h2>
+                        <!--Profile image-->
+                        <div>
+                        <img class="profile-picture" src="images/blank-profile-picture.jpg" alt="Your Profile Picture">
+                        </div>
+
+                    <div>
+                        <!--Profile info-->
+                        <form class="form-horizontal" action="editProfileController.jsp" method="post">
+                        <div class="profile-info">
+                            <!-- username -->
+                      <div class="form-group">
+                        <label for="username" class="col-sm-3 control-label">Όνομα Χρήστη</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="username" id="username" class="form-control" value= <%=welf.getUsername()%> readonly >
+                        </div>
+                      </div>   
+                      <!-- password --> 
+                      <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Κωδικός</label>
+                        <div class="col-sm-9">
+                          <input type="password" name="password" id="password" class="form-control" value= <%=welf.getPassword()%> required>
+                        </div>
+                      </div>     
+                      <!-- name -->
+                      <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">Όνομα</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="name" id="name" class="form-control" value="<%=welf.getName()%>" required>
+                        </div>
+                      </div> 
+                      <!-- owner -->
+                      <div class="form-group">
+                        <label for="owner" class="col-sm-3 control-label">Ιδιοκτήτης </label>
+                        <div class="col-sm-9">
+                          <input type="text" name="owner" id="owner" class="form-control" value="<%=welf.getOwner()%>" required>
+                        </div>
+                      </div> 
+                      <!-- vat -->
+                      <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">ΑΦΜ</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="vat" id="vat" class="form-control" value=<%=welf.getVat()%> required>
+                        </div>
+                      </div>
+                      <!-- phone -->
+                      <div class="form-group">
+                        <label for="phone" class="col-sm-3 control-label">Τηλέφωνο</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="phone" id="phone" class="form-control" value=<%=welf.getPhone()%> required>
+                        
+                        </div>
+                        </div>
+                      <!-- location -->
+                      <div class="form-group">
+                        <label for="location" class="col-sm-3 control-label">Πόλη</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="location" id="location" class="form-control" value="<%=welf.getLocation()%>" required>
+                        
+                        </div>
+                        </div>
+
+                     <div class="form-group">
+                        <div style="text-align:center">
+                        
+                            <button type="submit" class="submitbutton">
+                              Αποθήκευση Στοιχείων
+                            </button> 
+                        </div>
+                        
+                    </div>
+                        </form>
+                    </div>
+                </div>
+                
+    <%
+    }
+
+    %>
 
     <footer>
-        <div class="container_12">
+        <div >
             <div class="grid_12">
-            <p>Pawie &copy; 2023 | <a href="#">Privacy Policy</a> | Design by: <a href="http://www.templatemonster.com/">TemplateMonster.com, ismgroup43 </a></p>
+            <p>Pawie &copy; 2023 | Privacy Policy | ismgroup43 - cssTemplates: TemplateMonster.com, Bootstrap4</p>
             </div>
         </div>
     </footer>
+            
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>	

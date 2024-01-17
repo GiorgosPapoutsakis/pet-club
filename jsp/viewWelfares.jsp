@@ -31,7 +31,7 @@ if( request.getAttribute("total_welfares") != null ){
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <title>ViewWelfares</title>
+  <title>Welfares</title>
   <link rel="icon" href="images/favicon.ico">
 
   <!-- Bootstrap -->
@@ -42,7 +42,7 @@ if( request.getAttribute("total_welfares") != null ){
   <link rel="stylesheet" href="css/style.css">
 
   <!-- background -->
-  <link rel="stylesheet" href="css/background.css">
+  <link rel="stylesheet" href="css/background2.css">
 
   <style>
     table {
@@ -187,14 +187,14 @@ if( request.getAttribute("total_welfares") != null ){
           <!-- No additional parameter -->
           <a href="createTableController.jsp?new_offset=<%= new_offset %>">
             <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
-            </span></button>
+            </span></button> </a>
         <% 
           } else {
         %>        
           <!-- Additional parameter: keyword -->
           <a href="createTableController.jsp?new_offset=<%= new_offset %>&searchBar=<%= searched_keyword %>">
             <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
-            </span></button>
+            </span></button> </a>
         <%
           }
         }

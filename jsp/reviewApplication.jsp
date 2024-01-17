@@ -39,7 +39,7 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <title>ReviewApplication</title>
+  <title>Applications</title>
   <link rel="icon" href="images/favicon.ico">
 
 
@@ -50,6 +50,9 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
 
   <!-- Template -->
   <link rel="stylesheet" href="css/style.css">
+
+    <!-- background -->
+    <link rel="stylesheet" href="css/background2.css">
 
 
 
@@ -69,7 +72,7 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
 
     <div class="container theme-showcase" role="main">
       <div class="page-header">
-        <h2 class="ic1">Αξιολόγηση αίτησης</h2>
+        <h2 class="ic1">Συνολικές Αιτήσεις <span class="badge"><%= totalUnreviewedForms %></span> </h2>
     </div>
 
     <% 
@@ -163,7 +166,7 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
           <div class="form-group">
             <label for="comments" class="col-sm-3 control-label">Σχόλια</label>
             <div class="col-sm-9">
-              <textarea name="comments" id="comments" class="form-control" value="<%= formToReview.getMoreInfo() %>" style="height: 120px;" readonly></textarea>
+              <input type="text" name="comments" id="comments" class="form-control" value="<%= formToReview.getMoreInfo() %>" readonly></textarea>
             </div>
           </div>
             
@@ -200,7 +203,7 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
       <!-- Previous-Page Button -->
       <a href="reviewApplication.jsp?new_offset=<%= new_offset %>">
         <button class="btn btn-success"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">    
-        </span> Προηγούμενη </button>       
+        </span> Προηγούμενη </button> </a>   
     <% 
       
     }
@@ -212,7 +215,7 @@ totalUnreviewedForms = fUtil.getCountUnreviewedFormsByWelfID(welfPK);
       <!-- Next-Page Button -->
       <a href="reviewApplication.jsp?new_offset=<%= new_offset %>">
         <button class="btn btn-success"> Επόμενη <span class="glyphicon glyphicon-arrow-right" aria-hidden="true">
-        </span></button>
+        </span></button> </a> 
         
     <%             
     }

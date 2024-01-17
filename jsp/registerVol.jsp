@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="omadiki_ergasia.*" %>
+<%@ page import="omadiki_ergasia.*, java.util.List, java.util.ArrayList" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <title>Registration</title>
+  <title>Register</title>
   <link rel="icon" href="images/favicon.ico">
 
   <!-- Bootstrap core CSS -->
@@ -18,6 +18,9 @@
 
   <!-- Template -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- background -->
+  <link rel="stylesheet" href="css/background2.css">
 
   <style type="text/css">
     form { max-width: 600px; }
@@ -71,86 +74,140 @@
 
 </head>
 <body>
-
-<!-- navigation bar -->
-<%@ include file="navbar.jsp" %>  
+  <%@ include file="navbar.jsp" %>
 
   <div class="container theme-showcase" role="main">
     <div class="page-header">      
-      <h2 class="ic1">Registration Form </h2>
+      <h2 class="ic1">Volunteer Registration</h2>
     </div>
+
+    <% 
+    if(request.getAttribute("error_message") != null) { 
+      List<String> formErrors = (List<String>) request.getAttribute("error_message");
+        //test
+    %>		
+    <div class="alert alert-danger text-center" role="alert">
+      <ul>
+      <%
+        for (int i=0; i < formErrors.size(); i++){
+      %>
+        <li><%= formErrors.get(i) %></li>
+      <%
+        }
+      %>
+      </ul>
+    </div>
+    <% 
+    }
+
+    if(request.getAttribute("success_message") != null) { 
+    %>		
+    <div class="alert alert-success text-center" role="alert"><%=(String) request.getAttribute("success_message") %></div>
+    <% 
+    }
+    %>
+
+    <div class="form-group">
+      <div>
+        <a href="registerVol.jsp"> <button type="button" class="btn btn-warning" disabled> Εθελοντής </button>  </a>
+        <a href="registerWelf.jsp"> <button type="button" class="btn btn-warning"> Φιλοζωική </button>  </a>             
+      </div>
+    </div>
+
+    <!-- 
     <div class="form-group">
       <img class="img" src="images/page2_img2.jpg">
       <img class="img" src="images/page3_img3.jpg">
       <img class="img" src="images/page3_img1.jpg">
       <img class="img" src="images/page3_img5.jpg">
     </div>
-		
-    <form method="post" action="registerController.jsp" class="form-horizontal">
+    -->
+  
+    <!-- form -->
+    <form action="registerController.jsp" method="post" class="form-horizontal">
+    
+      <!-- form type -->
+      <div class="form-group">
+        <div class="col-sm-9">
+        <input type="hidden" name="formType" id="formType" class="form-control" value="vol" >
+        </div>
+      </div>
       <!-- username -->
       <div class="form-group">
         <label for="username" class="col-sm-3 control-label">Username</label>
         <div class="col-sm-9">
-          <input type="text" name="username" id="username" class="form-control" placeholder="username">
+        <input type="text" name="username" id="username" class="form-control" >
         </div>
       </div>   
       <!-- password --> 
       <div class="form-group">
         <label for="password" class="col-sm-3 control-label">Password</label>
         <div class="col-sm-9">
-          <input type="password" name="password" id="password" class="form-control" placeholder="password">
+        <input type="text" name="password" id="password" class="form-control" >
         </div>
       </div>     
       <!-- name -->
       <div class="form-group">
-        <label for="name" class="col-sm-3 control-label">Name</label>
+        <label for="name" class="col-sm-3 control-label">Όνομα</label>
         <div class="col-sm-9">
-          <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+        <input type="text" name="name" id="name" class="form-control" >
         </div>
-      </div> 
-      <!-- last name -->
+      </div>
+      <!-- surname -->
       <div class="form-group">
-        <label for="lastname" class="col-sm-3 control-label">Last Name</label>
+        <label for="name" class="col-sm-3 control-label">Επίθετο</label>
         <div class="col-sm-9">
-          <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name">
+        <input type="text" name="surname" id="name" class="form-control" >
         </div>
-      </div> 
+      </div>
       <!-- email -->
       <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">Email</label>
+        <label for="name" class="col-sm-3 control-label">Email</label>
         <div class="col-sm-9">
-          <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+        <input type="text" name="email" id="name" class="form-control" >
         </div>
       </div>
       <!-- phone -->
       <div class="form-group">
-        <label for="phone" class="col-sm-3 control-label">Phone</label>
+        <label for="phone" class="col-sm-3 control-label">Τηλέφωνο</label>
         <div class="col-sm-9">
-          <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone">
+        <input type="text" name="phone" id="surname" class="form-control" >
         </div>
-      </div>   
-      <!-- choice -->
+      </div>
+      <!-- age -->
       <div class="form-group">
-        <label class="col-sm-3 control-label"></label>
+        <label for="phone" class="col-sm-3 control-label">Ηλικία</label>
         <div class="col-sm-9">
-          <label class="radio-inline">
-            <input type="radio" name="choice" value="welfare"> Welfare
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="choice" value="volunteer"> Volunteer
-          </label>              
+        <input type="text" name="age" id="surname" class="form-control" >
+        </div>
+      </div>
+      <!-- location -->
+      <div class="form-group">
+        <label for="phone" class="col-sm-3 control-label">Τοποθεσία</label>
+        <div class="col-sm-9">
+        <input type="text" name="location" id="surname" class="form-control" >
         </div>
       </div>   
+              
       <!-- buttons -->
       <div class="form-group">
         <div class="col-sm-9 col-sm-offset-3">
-          <button type="submit" class="submitbutton"> Register </button> 
-          <button type="reset" class="clearbutton"> Cancel </button>              
+          <button type="submit" class="submitbutton">
+            Εγγραφή
+          </button> 
+          <button type="reset" class="clearbutton">
+            Εκκαθάριση
+          </button>              
         </div>
       </div>
+
     </form>
   </div>
-         
+
+  <!-- footer -->
+  <%@ include file="footer.jsp" %> 
+    
+     
   <script src="js/jquery.min.js"></script>
   <script	src="js/bootstrap.min.js"></script>
 </body>

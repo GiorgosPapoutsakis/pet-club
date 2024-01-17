@@ -20,6 +20,9 @@
   <!-- Template -->
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- background -->
+  <link rel="stylesheet" href="css/background2.css">
+
 
   <style type="text/css">
       form { max-width: 600px; }
@@ -100,7 +103,7 @@
 
     <div class="container theme-showcase" role="main">
       <div class="page-header">
-        <img class="img" src="images/page4_img4.jpg">
+        <!-- <img class="img" src="images/page4_img4.jpg"> -->
         <h2 class="ic1">Login</h2>
       </div>
     
@@ -140,12 +143,18 @@
         <div class="form-group">
           <div class="col-sm-9 col-sm-offset-3">
             <button type="submit" class="submitbutton"> Login </button> 
-            <button type="reset" class="clearbutton"> Cancel </button>   
-            <button class="registerbutton"> <a href="register.jsp"> Register </a></button>          
+            <button class="registerbutton"> <a href="registerVol.jsp"> Register </a></button>          
           </div>
         </div>
+      
       </form>
     </div>
+
+    
+    <!-- footer -->
+    <%@ include file="footer.jsp" %> 
+
+    
       
   <script src="js/jquery.min.js"></script>
   <script	src="js/bootstrap.min.js"></script>

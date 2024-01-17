@@ -56,8 +56,9 @@
               <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("login.jsp") ? "current" : "" %>">
                 <a href="login.jsp">Σύνδεση</a> </li>
                 
-              <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("register.jsp") ? "current" : "" %>">
-                <a href="register.jsp">Εγγραφή</a> </li>
+              <li class="<%=request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("registerVol.jsp")
+                || request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1).equals("registerWelf.jsp") ? "current" : "" %>"> 
+                <a href="registerVol.jsp">Εγγραφή</a> </li>
             <%
             }
             %>

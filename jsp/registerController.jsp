@@ -1,258 +1,164 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.io.*,java.util.*" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="omadiki_ergasia.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="omadiki_ergasia.*, java.util.List, java.util.ArrayList" %>
 
 <%
-String firstname = request.getParameter("name");
-String surname = request.getParameter("lastname");
-String email = request.getParameter("email");
-String username = request.getParameter("username");
-String password = request.getParameter("password");
-String choice = request.getParameter("choice");
-Int phone = request.getParameter("phone");
+GreekWord gWord = new GreekWord();
 
-boolean isValid = true;
-String errorMessage = "";
-ArrayList<String> errors = new ArrayList<String>();
-
-if (firstname == null || firstname.length() < 3) {
-    errors.add("Firstname is not valid");
-    isValid = false;
-}
-
-if (surname == null || surname.length() < 3) {
-    errors.add("Last name is not valid");
-    isValid = false;
-}
-
-if (username == null || username.length() < 5) {
-    errors.add("Last name is not valid");
-    isValid = false;
-}
-
-if (password == null || password.length() < 5) {
-    errors.add("Password is not valid");
-    isValid = false;
-}
+int errorsNumber = 0;
+List<String> formErrors = new ArrayList<String>();
 
 
-if (choice == null) {
-    errors.add("You must make a choice");
-    isValid = false;
-} 
+if (request.getParameter("formType") == null){
+    request.setAttribute("error_message", "Συμπληρωστε τα πεδία");
+%>
+<jsp:forward page="registerVol.jsp" />
+<%
+return;
 
-if (phone == null || phone.length() <10) {
-    errors.add("Your phone number is not valid");
-    isValid = false;
-} 
 
+} else if ( request.getParameter("formType").equals("vol") ) {
+
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");        
+    String name = request.getParameter("name");
+    String surname = request.getParameter("surname");
+    String email = request.getParameter("email");
+    String phone = request.getParameter("phone");
+    String age = request.getParameter("age");
+    String location = request.getParameter("location");
+
+    username = gWord.acceptGreekInput(username);
+    password = gWord.acceptGreekInput(password);
+    name = gWord.acceptGreekInput(name);
+    surname = gWord.acceptGreekInput(surname);
+    email = gWord.acceptGreekInput(email);
+    phone = gWord.acceptGreekInput(phone);
+    location = gWord.acceptGreekInput(location);
+
+
+    //Parameters Validation
+    if (username.length() < 3 ){
+        formErrors.add("To username πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+    if (password.length() < 4 ){
+        formErrors.add("To password πρέπει να συμπληρωθεί με τουλάχιστον 4 χαρακτήρες");
+    }
+    if (name.length() < 3 ){
+        formErrors.add("To όνομα πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+    if (surname.length() < 3 ){
+        formErrors.add("To επίθετο πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+    if (email.length() < 3 ){
+        formErrors.add("Συμπληρώστε το email σας");
+    }
+    if (phone.length() < 10 ){
+        formErrors.add("To Τηλέφωνο πρέπει να συμπληρωθεί με τουλάχιστον 10 ψηφία");
+    }
+    if (location.length() < 3 ){
+        formErrors.add("Η τοποθεσία πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+
+    int ageInt = 0;
+    try{
+        ageInt = Integer.parseInt(age);
+        if (ageInt < 18 ){
+            formErrors.add("Πρέπει να είστε τουλάχιστον 18 ετών");
+        }
+    }catch(Exception e){
+        formErrors.add("Η ηλικία πρέπει να είναι αριθμός");
+    }
+
+
+    if ( formErrors.size() == 0) {
+        location = gWord.removeGreekTones(location).toUpperCase();
+
+        VolunteerUtilities volUtil = new VolunteerUtilities();
+        Volunteer vol = new Volunteer(username,password,name,surname,email,phone,ageInt,location);
+        
+        try{
+            volUtil.register(vol);
+            request.setAttribute("success_message", "Επιτυχημένη Εγγραφή!");
+        } catch(Exception e) {
+            formErrors.add(e.getMessage());
+        }
+
+    } else {
+        request.setAttribute("error_message", formErrors);
+    }
+    
+%>
+<jsp:forward page="registerVol.jsp" />
+<%
+return;
+
+
+} else if ( request.getParameter("formType").equals("welf") ) {
+
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");        
+    String name = request.getParameter("name");
+    String owner = request.getParameter("owner");
+    String vat = request.getParameter("vat");
+    String phone = request.getParameter("phone");
+    String location = request.getParameter("location");
+
+    username = gWord.acceptGreekInput(username);
+    password = gWord.acceptGreekInput(password);
+    name = gWord.acceptGreekInput(name);
+    vat = gWord.acceptGreekInput(vat);
+    phone = gWord.acceptGreekInput(phone);
+    location = gWord.acceptGreekInput(location);
+
+
+    //Parameters Validation
+    if (username.length() < 3 ){
+        formErrors.add("To username πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+    if (password.length() < 4 ){
+        formErrors.add("To password πρέπει να συμπληρωθεί με τουλάχιστον 4 χαρακτήρες");
+    }
+    if (name.length() < 3 ){
+        formErrors.add("Η ονομασία πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+    if (owner.length() < 3 ){
+        formErrors.add("Το όνομα ιδιοκτήτη πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+    if (vat.length() != 8 ){
+        formErrors.add("Το ΑΦΜ πρέπει να συμπληρωθεί με 8 ψηφία");
+    }
+    if (phone.length() < 10 ){
+        formErrors.add("To Τηλέφωνο πρέπει να συμπληρωθεί με τουλάχιστον 10 ψηφία");
+    }
+    if (location.length() < 3 ){
+        formErrors.add("Η πόλη πρέπει να συμπληρωθεί με τουλάχιστον 3 χαρακτήρες");
+    }
+
+    if (formErrors.size() == 0) {
+        location = gWord.removeGreekTones(location).toUpperCase();
+
+        WelfareUtilities welfUtil = new WelfareUtilities();
+        Welfare welf = new Welfare(username,password,name,owner,vat,phone,location);
+
+        try{    
+            welfUtil.register(welf);
+            request.setAttribute("success_message", "Επιτυχημένη Εγγραφή!");
+        } catch(Exception e) {
+            formErrors.add(e.getMessage());
+        }
+
+    } else {
+        request.setAttribute("error_message", formErrors);
+    }
+
+%>
+<jsp:forward page="registerWelf.jsp" />
+<%
+return;
+
+
+    }
 %>
 
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-<title>Registration</title>
-<meta charset="utf-8">
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">	
-<!-- Bootstrap Optional theme -->
-<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-<!-- Custom styles for this template -->
-<link href="css/theme_8XXXXXX.css" rel="stylesheet">
-  <style type="text/css">
-      form { max-width: 600px; }
-      .main-label { font-size: 16px; }
-      .img {
-        height: 110px;
-        margin-right: 25px;
-      }
-  </style>
-  <style>
-    .submitbutton{
-      background-color: rgb(183, 255, 0);
-      color: white;
-      border: none;
-      height: 36px;
-      width: 85px;
-      border-radius: 2px;
-      font-weight: bold;
-      font-size: 15;
-      cursor: pointer;
-      transition: opacity 0.15s;
-    
-    }
-    .submitbutton:hover {
-        opacity: 0.5;
-    }
-    .submitbutton:active {
-      opacity: 0.3;
-    }
-    .clearbutton{
-      background-color: rgb(255, 170, 0);
-      color: white;
-      border: none;
-      height: 36px;
-      width: 85px;
-      border-radius: 2px;
-      font-weight: bold;
-      font-size: 15;
-      cursor: pointer;
-      transition: opacity 0.15s;
-    }
-    .clearbutton:hover {
-        opacity: 0.5;
-    }
-    .clearbutton:active {
-      opacity: 0.3;
-    }
-  </style>
-<link rel="icon" href="images/favicon.ico">
-<link rel="shortcut icon" href="images/favicon.ico">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/form.css">
 
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<link rel="stylesheet" media="screen" href="css/ie.css">
-<![endif]-->
-</head>
-<body>
-<header>
-  <div class="container_12">
-    <div class="grid_12">
-      <h1><img src="images/pawie.png" alt=""></h1>
-      <div class="menu_block">
-        <nav>
-          <ul class="sf-menu">
-            <li><a href="viewWelfares.jsp">Walfares</a></li>
-            <li><a href="login.jsp">Login</a></li>
-            <li class="current"><a href="register.jsp">Register</a></li>
-          </ul>
-        </nav>
-        <div class="clear"></div>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
-</header>
-
-    <div class="container theme-showcase" role="main">
-      <div class="page-header">
-      
-				<h2 class="ic1">Registration Form </h2>
-			</div>
-      <div class="form-group">
-      <img class="img" src="images/page2_img2.jpg">
-        <img class="img" src="images/page3_img3.jpg">
-        <img class="img" src="images/page3_img1.jpg">
-        <img class="img" src="images/page3_img5.jpg">
-      </div>
-	<body>
-
-    <% if (!isValid) { %>
-        <!-- Error section -->
-        <div class="container theme-showcase" role="main">
-            <div class="page-header">
-                <h1>Registration form has errors</h1>
-            </div>
-
-            <div class="alert alert-danger" role="alert">
-				<ol>
-					<% for (int i = 0; i < errors.size(); i++) { %>
-						<li><%= errors.get(i) %></li>
-					<% } %>
-				</ol>
-            </div>
-			<a href="register.jsp" class="blue-btn">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to the form
-			</a>
-        </div>
-		<!--Success section-->
-    <% } else { 
-
-		if (choice == "welfare") {
-
-		WelfareUtilities welf = new WelfareUtilities();
-		Welfare registered = new Welfare(username, password, firstname, surname, email, phone);
-		try {
-
-        welf.register(registered); %>
-    
-        <div class="container theme-showcase" role="main">
-            <div class="page-header">
-                <h1>Registration done!</h1>
-            </div>
-
-            <ul>
-                <li><b>Name:</b> <%= firstname %></li>
-                <li><b>Surname:</b> <%= surname %></li>
-                <li><b>Email:</b> <%= email %></li>
-                <li><b>Username:</b> <%= username %></li>
-            </ul>
-        </div>  
-
-		} catch(Exception e) {
-
-        <div class="container theme-showcase" role="main">
-            <div class="page-header">
-                <h1>Registration form has errors</h1>
-            </div>
-
-            <div class="alert alert-danger" role="alert">
-				<%= e.getMessage() %>
-            </div>
-			<a href="register.jsp" class="blue-btn">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to the form
-			</a>
-        </div>
-		</div>
-		<%
-		}
-
-		}else{
-
-		VolunteerUtilities vol = new VolunteerUtilities();
-		Volunteer registered = new Volunteer(username, password, firstname, surname, email, phone);
-		try {
-
-        vol.register(registered); %>
-    
-        <div class="container theme-showcase" role="main">
-            <div class="page-header">
-                <h1>Registration done!</h1>
-            </div>
-
-            <ul>
-                <li><b>Name:</b> <%= firstname %></li>
-                <li><b>Surname:</b> <%= surname %></li>
-                <li><b>Email:</b> <%= email %></li>
-                <li><b>Username:</b> <%= username %></li>
-            </ul>
-        </div>  
-
-		} catch(Exception e) {
-
-        <div class="container theme-showcase" role="main">
-            <div class="page-header">
-                <h1>Registration form has errors</h1>
-            </div>
-
-            <div class="alert alert-danger" role="alert">
-				<%= e.getMessage() %>
-            </div>
-			<a href="register.jsp" class="blue-btn">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back to the form
-			</a>
-        </div>
-		</div>
-
-		<%
-		}
-}
-	}
-%>
-
-	</body>
-</html>

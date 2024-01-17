@@ -36,7 +36,7 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <title>FillForm</title>
+  <title>Form</title>
   <link rel="icon" href="images/favicon.ico">
 
 
@@ -47,6 +47,9 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
 
   <!-- Template -->
   <link rel="stylesheet" href="css/style.css">
+
+    <!-- background -->
+    <link rel="stylesheet" href="css/background2.css">
 
 
 
@@ -147,7 +150,7 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
           <div class="form-group">
             <label for="comments" class="col-sm-3 control-label">Σχόλια</label>
             <div class="col-sm-9">
-              <textarea name="comments" id="comments" class="form-control" style="height: 120px;"></textarea>
+              <input type="text" name="comments" id="comments" class="form-control">
             </div>
           </div>
             
@@ -168,6 +171,9 @@ selected_welfare_name = gWord.acceptGreekInput(selected_welfare_name);
 
       </div>
     </div>
+
+        <!-- footer -->
+        <%@ include file="footer.jsp" %> 
         
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>	    
