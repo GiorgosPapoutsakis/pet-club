@@ -316,4 +316,90 @@ public class WelfareUtilities{
 		}
     }
 
+    public void edit(Welfare newWelf) throws Exception {
+
+        DB db = new DB();
+        Connection con = null;
+        String query = "UPDATE welfare SET password=?, name=?, owner=?, vat=?, phone=?, location=? WHERE username=?";
+
+        try {
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(query);
+                stmt.setString(1, newWelf.getPassword());
+                stmt.setString(2, newWelf.getName());
+                stmt.setString(3, newWelf.getOwner());
+                stmt.setString(4, newWelf.getVat());
+                stmt.setString(5, newWelf.getPhone());
+                stmt.setString(6, newWelf.getLocation());
+                stmt.setString(7, newWelf.getUsername());
+           
+            stmt.executeUpdate();
+
+            stmt.close();
+            db.close();
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        } finally {
+            try {
+             db.close();   
+            } catch (Exception e) {
+                
+            }           
+            
+        }
+    
+    }
+
+    public void register(Welfare wel) throws Exception {
+        Connection con = null;
+        DB db = new DB();
+
+        String sql1 = "SELECT * FROM welfare WHERE username=? OR vat = ? OR phone = ? ";
+        String sql2 = "INSERT INTO welfare (username,password,name,owner,vat,phone,location)" +
+        " VALUES (?, ? ,?, ?, ?, ?, ?);";
+
+        try {            
+            con = db.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql1);
+            
+            stmt.setString(1, wel.getUsername());
+            stmt.setString(2, wel.getVat());
+            stmt.setString(3, wel.getPhone());
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                rs.close();
+                stmt.close();
+                throw new Exception("To username, ΑΦΜ ή τηλέφωνο χρησιμοποιείται ήδη");
+            }
+
+            PreparedStatement stmt2 = con.prepareStatement(sql2);
+            stmt2.setString(1, wel.getUsername());
+            stmt2.setString(2, wel.getPassword());
+            stmt2.setString(3, wel.getName());
+            stmt2.setString(4, wel.getOwner());
+            stmt2.setString(5, wel.getVat());
+            stmt2.setString(6, wel.getPhone());
+            stmt2.setString(7, wel.getLocation());
+
+            stmt2.executeUpdate();
+            
+            stmt2.close();
+            rs.close();
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		} finally {
+			try {
+				db.close();
+			} catch (Exception e) {
+
+			}
+		}
+				
+	}
+    
+
 }
